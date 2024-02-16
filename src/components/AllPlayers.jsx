@@ -38,6 +38,7 @@ function AllPlayers() {
         type="text"
         placeholder="Search players..."
         onChange={(event) => setSearchTerm(event.target.value)}
+        className="search-bar"
       />
       <div className="player-cards">
         {filteredPlayers.map((player) => (
