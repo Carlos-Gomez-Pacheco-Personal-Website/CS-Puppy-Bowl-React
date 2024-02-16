@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function AllPlayers() {
   const [players, setPlayers] = useState([]);
   const [expandedPlayerId, setExpandedPlayerId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -24,13 +25,22 @@ function AllPlayers() {
     setExpandedPlayerId(expandedPlayerId === id ? null : id);
   };
 
+  const filteredPlayers = players.filter((player) =>
+    player.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="player-container">
       <Link to="/players/new" className="create-button">
         Create Player
       </Link>
+      <input
+        type="text"
+        placeholder="Search players..."
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
       <div className="player-cards">
-        {players.map((player) => (
+        {filteredPlayers.map((player) => (
           <div key={player.id} className="player-card">
             <img
               src={player.imageUrl}

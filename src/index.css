@@ -98,7 +98,8 @@ button:focus-visible {
 
 .player-image {
   width: 100%;
-  height: auto;
+  height: 200px; /* size of the inside image */
+  object-fit: cover;
 }
 
 .player-name {
