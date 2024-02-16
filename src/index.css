@@ -111,7 +111,8 @@ button:focus-visible {
 }
 
 .create-button,
-.delete-button {
+.delete-button,
+.go-back-link {
   margin: 10px;
   padding: 5px 10px;
   border: none;
@@ -142,4 +143,22 @@ button:focus-visible {
 
 .navbar-link:hover {
   color: #646cff;
+}
+
+.go-back-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.go-back-link:hover {
+  background-color: #ffffff;
 }

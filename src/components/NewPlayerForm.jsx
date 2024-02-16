@@ -41,9 +41,16 @@
 
 import { useState } from "react";
 import { createPlayer } from "../API";
+import { Link } from "react-router-dom";
+import "./NewPlayerForm.css";
 
 function NewPlayerForm() {
-  const [playerData, setPlayerData] = useState({ name: "", breed: "" });
+  const [playerData, setPlayerData] = useState({
+    name: "",
+    breed: "",
+    status: "",
+    imageUrl: "",
+  });
 
   const handleChange = (event) => {
     setPlayerData({
@@ -55,11 +62,11 @@ function NewPlayerForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await createPlayer(playerData);
-    // Redirect or update UI
+    alert("Player has been created");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="player-form">
       <label>
         Name:
         <input
@@ -78,7 +85,31 @@ function NewPlayerForm() {
           onChange={handleChange}
         />
       </label>
-      <input type="submit" value="Submit" />
+      <label>
+        Status:
+        <select
+          id="status"
+          name="status"
+          value={playerData.status}
+          onChange={handleChange}
+        >
+          <option value="field">field</option>
+          <option value="bench">bench</option>
+        </select>
+      </label>
+      <label>
+        Image URL:
+        <input
+          type="text"
+          name="imageUrl"
+          value={playerData.imageUrl}
+          onChange={handleChange}
+        />
+      </label>
+      <input type="submit" value="Submit" className="submit-button" />
+      <Link to="/" className="go-back-link">
+        Go Back
+      </Link>
     </form>
   );
 }
