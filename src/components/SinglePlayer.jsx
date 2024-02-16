@@ -21,7 +21,7 @@ function SinglePlayer() {
     <div>
       <h2>{player.name}</h2>
       <h2>{player.breed}</h2>
-      {/* Render other player details */}
+      {/* Render other player details from the API*/}
     </div>
   );
 }
