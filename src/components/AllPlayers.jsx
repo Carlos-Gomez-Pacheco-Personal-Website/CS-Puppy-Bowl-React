@@ -1,42 +1,10 @@
-// // src/components/AllPlayers.jsx
-// import { useState, useEffect } from "react";
-// import { fetchPlayers } from "../API";
-// import { Link } from "react-router-dom";
-
-// function AllPlayers() {
-//   const [players, setPlayers] = useState([]);
-
-//   useEffect(() => {
-//     async function getPlayers() {
-//       const playersData = await fetchPlayers();
-//       setPlayers(playersData);
-//     }
-
-//     getPlayers();
-//   }, []);
-
-//   return (
-//     <div>
-//       {players.map((player) => (
-//         <div key={player.id}>
-//           <h4>{player.name}</h4>
-//           {/* Display other player details here */}
-//           <Link to={`/players/${player.id}`}>See Details</Link>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default AllPlayers;
-
 import { useEffect, useState } from "react";
 import { getPlayers, deletePlayer } from "../API";
 import { Link } from "react-router-dom";
 
 function AllPlayers() {
   const [players, setPlayers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedPlayerId, setExpandedPlayerId] = useState(null);
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -52,22 +20,17 @@ function AllPlayers() {
     setPlayers(players.filter((player) => player.id !== id));
   };
 
-  const filteredPlayers = players.filter((player) =>
-    player.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleToggleDetails = (id) => {
+    setExpandedPlayerId(expandedPlayerId === id ? null : id);
+  };
 
   return (
     <div className="player-container">
       <Link to="/players/new" className="create-button">
         Create Player
       </Link>
-      <input
-        type="text"
-        placeholder="Search players..."
-        onChange={(event) => setSearchTerm(event.target.value)}
-      />
       <div className="player-cards">
-        {filteredPlayers.map((player) => (
+        {players.map((player) => (
           <div key={player.id} className="player-card">
             <img
               src={player.imageUrl}
@@ -76,6 +39,20 @@ function AllPlayers() {
             />
             <h2 className="player-name">{player.name}</h2>
             <p className="player-breed">{player.breed}</p>
+            <button
+              onClick={() => handleToggleDetails(player.id)}
+              className="details-button"
+            >
+              {expandedPlayerId === player.id ? "Hide Details" : "Show Details"}
+            </button>
+            {expandedPlayerId === player.id && (
+              <div className="player-details">
+                <p>Status: {player.status}</p>
+                <p>ID: {player.id}</p>
+                <p>Team: {player.team}</p>
+                <p>Cohort ID: {player.cohortId}</p>
+              </div>
+            )}
             <button
               onClick={() => handleDelete(player.id)}
               className="delete-button"
