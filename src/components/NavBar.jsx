@@ -22,11 +22,12 @@ import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <nav>
-      <Link to="/">All Players</Link>
-      <Link to="/players/new">New Player</Link>
-      {/* Add more links as needed */}
-    </nav>
+    <div id="navbar">
+      <nav>
+        <Link to="/">Puppy Bowl</Link>
+        {/* Add more links as needed */}
+      </nav>
+    </div>
   );
 }
 
